@@ -1,10 +1,6 @@
 package com.vcredit.kafka.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -17,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Test implements Serializable {
     private static final long serialVersionUID = 7565823248148436403L;
     private String msg;

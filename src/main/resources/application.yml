@@ -3,11 +3,25 @@ spring:
     consumer:
       bootstrap-servers: 127.0.0.1:9092
       enable-auto-commit: false
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.vcredit.kafka.dto
     producer:
       bootstrap-servers: 127.0.0.1:9092
       retries: 0
       batch-size: 4096
       buffer-memory: 40960
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      properties:
+#        spring:
+#          json:
+#            add:
+#              type:
+#                headers: true
+#https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-messaging.html#boot-features-kafka-extra-props
     listener:
       ack-mode: manual_immediate
 #      ack-mode: manual
