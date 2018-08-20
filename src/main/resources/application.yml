@@ -11,7 +11,6 @@ spring:
               packages: com.vcredit.kafka.dto
     producer:
       bootstrap-servers: 127.0.0.1:9092
-      retries: 0
       batch-size: 4096
       buffer-memory: 40960
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -24,5 +23,8 @@ spring:
 #https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-messaging.html#boot-features-kafka-extra-props
     listener:
       ack-mode: manual_immediate
+      poll-timeout: 3000ms
+      concurrency: 2
 #      ack-mode: manual
+
 

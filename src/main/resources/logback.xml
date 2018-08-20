@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- Console -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%date{yyyy-MM-dd HH:mm:ss.SSS} | %highlight(%-5level) | %green(%thread) | %cyan(%logger.%method %line) | %msg%n
+				<!--%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n-->
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- INFO -->
+	<appender name="InfoRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>D:/var/logs/kafka-demo.log</file>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}.%method %line - %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>D:/var/logs/kafka-demo.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<!-- project default level -->
+	<logger name="com.vcredit.kafka" level="INFO" />
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="InfoRollingFile" />
+	</root>
+</configuration>
