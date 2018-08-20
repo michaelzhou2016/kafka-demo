@@ -6,9 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
+
+import static java.lang.Integer.MAX_VALUE;
 
 /**
  * @Author zhouliliang
@@ -26,9 +30,15 @@ public class Listener {
     }
 
     @KafkaHandler
-    public void listen(Integer bar, Acknowledgment acknowledgment) {
+    @Retryable(value = Exception.class, maxAttempts = MAX_VALUE, backoff = @Backoff(delay = 2000, multiplier = 1.5))
+    public void listen(Integer bar, Acknowledgment acknowledgment) throws Exception {
         log.info("Integer:" + bar);
-        acknowledgment.acknowledge();
+        if (Math.random() > 0.5) {
+            log.error("ERROR INTEGER!");
+            throw new Exception("Integer err");
+        } else {
+            acknowledgment.acknowledge();
+        }
     }
 
     @KafkaHandler(isDefault = true)
