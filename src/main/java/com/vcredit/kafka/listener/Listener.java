@@ -1,5 +1,6 @@
 package com.vcredit.kafka.listener;
 
+import com.vcredit.kafka.dto.Foo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -28,8 +29,8 @@ public class Listener {
     }
 
     @KafkaHandler(isDefault = true)
-    public void listenDefault(Object object, Acknowledgment acknowledgment) {
-        log.info("isDefault:" + object);
+    public void listenDefault(Foo foo, Acknowledgment acknowledgment) {
+        log.info("isDefault:" + foo);
         acknowledgment.acknowledge();
     }
 }
