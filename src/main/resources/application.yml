@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+      enable-auto-commit: false
+      value-deserializer:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+      retries: 0
+      batch-size: 4096
+      buffer-memory: 40960
+    listener:
+      ack-mode: manual_immediate
+#      ack-mode: manual
+
