@@ -30,7 +30,11 @@ public class Listener {
 
     @KafkaHandler(isDefault = true)
     public void listenDefault(Foo foo, Acknowledgment acknowledgment) {
-        log.info("isDefault:" + foo);
-        acknowledgment.acknowledge();
+        try {
+            log.info("isDefault Foo:" + foo);
+            acknowledgment.acknowledge();
+        } catch (Exception e) {
+            log.error("exception:", e);
+        }
     }
 }
